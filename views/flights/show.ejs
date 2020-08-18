@@ -1,0 +1,48 @@
+<%- include('../partials/header') %>
+<section>
+    <div>Airline: <%= thisFlight.airline%></div>
+    <div>Airport: <%= thisFlight.airport%></div>
+    <div>Flight No.: <%= thisFlight.flightNo%></div>
+    <div>Departs.: <%= thisFlight.departs%></div>
+    <div>Destinations: 
+    <% thisFlight.destinations.forEach(function(f){ %>
+        <%= f.airport %> on 
+        <%= f.arrival %>
+    <% }) %>
+    </div>
+</section>
+<section>
+    <h2>Add Destinations</h2>
+    <form action="/flights/<%= thisFlight.id %>/desn" method="POST">
+        <label>Airport</label>
+        <select name="airport">
+            <option value="AUS">AUS</option>
+            <option value="DFW">DFW</option>
+            <option value="DEN">DEN</option>
+            <option value="LAX">LAZ</option>
+            <option value="SAN">SAN</option>
+        </select>
+        <label>Arrival Date</label>
+        <input type="date" name="arrival">
+        <input type="submit" value="Add">
+    </form>
+</section>
+<section>
+    <h2>Tickets Associated</h2>
+    <a href="/flights/<%= thisFlight.id %>/tickets/new" class="btn btn-dark">Add A New Ticket</a>
+    <table class="table" style="width:50%">
+    <tr>
+        <td>Flight ID</td>
+        <td>Seat</td>
+        <td>Price</td>
+    </tr>     
+        <% thisTickets.forEach(function(t){ %>
+        <td><%= t.flight%></td>
+        <td><%= t.seat%></td>
+        <td><%= t.price%></td>
+        <% }) %>
+    </table>
+</section>
+
+
+<%- include('../partials/footer') %>
